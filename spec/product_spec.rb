@@ -11,18 +11,18 @@ RSpec.describe Product do
     context 'nameがhogeの場合' do
       let(:name) { 'hoge' }
 
-      it { is_expected.to eq name }
+      it { is_expected.to eq 'hoge' }
     end
 
     context 'nameがコーラの場合' do
       let(:name) { 'コーラ' }
-      it { is_expected.to eq name }
+      it { is_expected.to eq 'コーラ' }
     end
   end
 
   describe '#price' do
     let(:price) { 150 }
-    
+
     subject { product.price }
 
     it { is_expected.to eq 150 }
