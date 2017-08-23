@@ -18,30 +18,22 @@ RSpec.describe Money do
   end
 
   describe '#==' do
-    subject { money == Money.new(amount:100) }
+    let(:amount) { 100 }
+
+    subject { money == other }
 
     context '全く同じインスタンスが作られたとき' do
-      let(:amount) { 100 }
+      let(:other) { Money.new(amount: amount) }
       it { is_expected.to be_truthy }
     end
-  end
-
-  describe '#==' do
-    subject { money == Money.new(amount:150) }
-
     context 'moneyの値の違うインスタンスが作られたとき' do
-      let(:amount) { 100 }
+      let(:other) { Money.new(amount:  150) }
       it { is_expected.to be_falsey }
     end
-  end
-
-  describe '#==' do
-    subject { money == other }
 
     shared_examples '==' do |x|
       context "#{x.class.to_s}と比較されたとき" do
         let(:other) { x }
-        let(:amount) { 100 }
         it { is_expected.to be_falsey }
       end
     end
@@ -49,6 +41,5 @@ RSpec.describe Money do
     include_examples '==', 100
     include_examples '==', 100.01
     include_examples '==', '100'
-
   end
 end
