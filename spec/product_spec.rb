@@ -10,7 +10,6 @@ RSpec.describe Product do
 
     context 'nameがhogeの場合' do
       let(:name) { 'hoge' }
-
       it { is_expected.to eq 'hoge' }
     end
 
