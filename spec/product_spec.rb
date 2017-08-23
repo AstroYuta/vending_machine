@@ -1,25 +1,30 @@
 require "spec_helper"
 
 RSpec.describe Product do
-  describe '#name' do
-    let(:product) { Product.new(name: 'hoge', price: 150)}
+  let(:product) { Product.new(name: name, price: price) }
+  let(:name)    { 'default name' }
+  let(:price)   { 0 }
 
+  describe '#name' do
     subject { product.name }
 
-    it { is_expected.to eq 'hoge' }
+    context 'nameがhogeの場合' do
+      let(:name) { 'hoge' }
+
+      it { is_expected.to eq name }
+    end
 
     context 'nameがコーラの場合' do
-      let(:product) { Product.new(name: 'コーラ', price: 170) }
-      it { is_expected.to eq 'コーラ' }
+      let(:name) { 'コーラ' }
+      it { is_expected.to eq name }
     end
   end
 
   describe '#price' do
-    let(:product) { Product.new(name: 'hoge', price: 150)}
-
+    let(:price) { 150 }
+    
     subject { product.price }
 
     it { is_expected.to eq 150 }
-
   end
 end
