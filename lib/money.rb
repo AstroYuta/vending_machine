@@ -5,6 +5,7 @@ class Money
   end
 
   def ==(other_money)
+    other_money.is_a?(Money) &&
     self.amount == other_money.amount
   end
 end
