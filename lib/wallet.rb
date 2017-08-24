@@ -18,8 +18,12 @@ class Wallet
   end
 
   def merge(x)
-    sum_of_money_new = self.sum_of_money + x.sum_of_money
-    y = Wallet.new(sum_of_money: sum_of_money_new)
+    n_of_1yen_new = self.n_of_1yen + x.n_of_1yen
+    n_of_10yen_new = self.n_of_10yen + x.n_of_10yen
+    n_of_50yen_new = self.n_of_50yen + x.n_of_50yen
+    n_of_100yen_new = self.n_of_100yen + x.n_of_100yen
+    n_of_500yen_new = self.n_of_500yen + x.n_of_500yen
+    y = Wallet.new(n_of_1yen: n_of_1yen_new, n_of_10yen: n_of_10yen_new, n_of_50yen: n_of_50yen_new, n_of_100yen: n_of_100yen_new, n_of_500yen: n_of_500yen_new)
     return y
   end
 end

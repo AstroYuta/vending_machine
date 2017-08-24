@@ -167,16 +167,17 @@ RSpec.describe Wallet do
     end
   end
 
-  # describe '#merge' do
-  #   subject { wallet.merge(Wallet.new(sum_of_money: 200, n_of_1yen: 0, n_of_10yen: 0, n_of_50yen: 0, n_of_100yen: 2, n_of_500yen: 0)) }
-  #   let(:n_of_1yen) { 0 }
-  #   let(:n_of_10yen) { 0 }
-  #   let(:n_of_50yen) { 0 }
-  #   let(:n_of_100yen) { 5 }
-  #   let(:n_of_500yen) { 1 }    
+  describe '#merge' do
+    subject { wallet.merge(Wallet.new(n_of_1yen: 0, n_of_10yen: 0, n_of_50yen: 0, n_of_100yen: 1, n_of_500yen: 0)) }
+    let(:n_of_1yen) { 0 }
+    let(:n_of_10yen) { 0 }
+    let(:n_of_50yen) { 0 }
+    let(:n_of_100yen) { 2 }
+    let(:n_of_500yen) { 0 }    
 
-  #   context '100円の入った財布と200円の入った財布を統合したとき' do
-  #     let(:sum_of_money) { 100 }
-  #     it { expect(subject.sum_of_money).to eq 300 }
-  #   end
+    context '100円の入った財布と200円の入った財布を統合したとき' do
+      it { expect(subject.sum_of_money).to eq 300 }
+      it { expect(subject.n_of_100yen).to eq 3}
+    end
+  end
 end
