@@ -10,7 +10,7 @@ RSpec.describe Wallet do
     shared_examples 'sum_of_money' do |x|
       context "所持金額が#{x}円のとき" do
         let(:sum_of_money) { x }
-        it { is_expected.to eq x}
+        it { is_expected.to eq x }
       end
     end
 
@@ -38,5 +38,16 @@ RSpec.describe Wallet do
       it { is_expected.to eq 0 }
     end
   end
+
+  describe '#merge' do
+    subject { wallet.merge(Wallet.new(sum_of_money: 200)) }
+
+    context '100円の入った財布と200円の入った財布を統合したとき' do
+      let(:sum_of_money) { 100 }
+      it { expect(subject.sum_of_money).to eq 300 }
+    end
+
+  end
+
 
 end
