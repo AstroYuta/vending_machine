@@ -2,8 +2,7 @@ require "spec_helper"
 require "wallet"
 
 RSpec.describe Wallet do
-  let(:wallet) { Wallet.new(n_of_1yen: n_of_1yen, n_of_10yen: n_of_10yen,
-    n_of_50yen: n_of_50yen, n_of_100yen: n_of_100yen, n_of_500yen: n_of_500yen) }
+  let(:wallet) { Wallet.new(n_of_1yen: n_of_1yen, n_of_10yen: n_of_10yen, n_of_50yen: n_of_50yen, n_of_100yen: n_of_100yen, n_of_500yen: n_of_500yen) }
   #ここから枚数がちゃんと実装されているか愚直に書いてみる
   #マイナスになるテストは、硬貨だけがマイナスになる場合にとどめ、sum_of_moneyがマイナスになるときは下でテストする
   describe '#n_of_1yen' do
