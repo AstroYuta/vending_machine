@@ -8,4 +8,8 @@ class Money
     other_money.is_a?(Money) &&
     self.amount == other_money.amount
   end
+
 end
+
+# money = Money.new(amount: 10)
+# p money.amount
