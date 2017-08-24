@@ -19,7 +19,6 @@ RSpec.describe Wallet do
     include_examples 'sum_of_money', 1234
     include_examples 'sum_of_money', 32450
     include_examples 'sum_of_money', 50000
-  end
 
     context '所持金額がマイナスのとき' do
       it {
@@ -27,7 +26,17 @@ RSpec.describe Wallet do
       }
     end
 
+    context '財布に100円入れたとき' do
+      a = 100
+      let(:sum_of_money) { 100 + a }
+      it { is_expected.to eq 200 }    
+    end
 
-
+    context '財布から100円抜いた時' do
+      b = 100
+      let(:sum_of_money) { 100 - b }
+      it { is_expected.to eq 0 }
+    end
+  end
 
 end
