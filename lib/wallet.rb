@@ -5,5 +5,16 @@ class Wallet
   def initialize(money:)
     @money = money
     @sum_of_money = money.amount
-  end  
+  end
+
+  def add(money)
+    self.sum_of_money += money.amount
+    return self
+  end
+
+  def remove(money)
+    self.sum_of_money -= money.amount
+    return self
+  end
+
 end
