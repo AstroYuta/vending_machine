@@ -1,29 +1,9 @@
 require 'money'
 
 class Wallet
-  attr_accessor :sum_of_money
-  attr_accessor :n_of_1yen, :n_of_10yen, :n_of_50yen, :n_of_100yen, :n_of_500yen
-  def initialize(n_of_1yen:, n_of_10yen:, n_of_50yen:, n_of_100yen:, n_of_500yen:)
-    @n_of_1yen = n_of_1yen
-    @n_of_10yen = n_of_10yen
-    @n_of_50yen = n_of_50yen
-    @n_of_100yen = n_of_100yen
-    @n_of_500yen = n_of_500yen
-    @sum_of_money = Money.new(amount: 1).amount * n_of_1yen + Money.new(amount: 10).amount * n_of_10yen + Money.new(amount: 50).amount * n_of_50yen + Money.new(amount: 100).amount * n_of_100yen + Money.new(amount: 500).amount * n_of_500yen
-    if (@sum_of_money < 0 || @n_of_1yen < 0 || @n_of_10yen < 0) then
-      raise ArgumentError, 'invalid argument negative money'
-    
-    end
-
-  end
-
-  def merge(x)
-    n_of_1yen_new = self.n_of_1yen + x.n_of_1yen
-    n_of_10yen_new = self.n_of_10yen + x.n_of_10yen
-    n_of_50yen_new = self.n_of_50yen + x.n_of_50yen
-    n_of_100yen_new = self.n_of_100yen + x.n_of_100yen
-    n_of_500yen_new = self.n_of_500yen + x.n_of_500yen
-    y = Wallet.new(n_of_1yen: n_of_1yen_new, n_of_10yen: n_of_10yen_new, n_of_50yen: n_of_50yen_new, n_of_100yen: n_of_100yen_new, n_of_500yen: n_of_500yen_new)
-    return y
-  end
+  attr_accessor :money, :sum_of_money
+  def initialize(money:)
+    @money = money
+    @sum_of_money = money.amount
+  end  
 end

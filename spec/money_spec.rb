@@ -15,6 +15,12 @@ RSpec.describe Money do
       let(:amount) { 500 }
       it { is_expected.to eq 500 }
     end
+
+    context '金額が負の時' do
+      let(:amount) { -1 }
+      it { expect { money }.to raise_error(ArgumentError) }
+    end
+
   end
 
   describe '#==' do
@@ -42,4 +48,27 @@ RSpec.describe Money do
     include_examples '==', 100.01
     include_examples '==', '100'
   end
+
+  describe '#plus' do
+    let(:amount) { 100 }
+
+    subject { money.plus(Money.new(amount: 100)) }
+
+    context '100円に100円足された時' do 
+      it { expect(subject.amount).to eq 200 }
+    end
+  end
+
+  describe '#minus' do
+    let(:amount) { 100 }
+
+    subject {money.minus(Money.new(amount:100)) }
+
+    context '100円から100円引いた時' do 
+      it { expect(subject.amount).to eq 0 }
+    end
+
+  end
+
+
 end
