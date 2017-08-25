@@ -17,4 +17,8 @@ class Wallet
     return self
   end
 
+  def merge(other_wallet)
+    self.sum_of_money += other_wallet.sum_of_money
+    return self
+  end
 end
