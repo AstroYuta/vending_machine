@@ -13,8 +13,12 @@ class Wallet
   end
 
   def remove(money)
-    self.sum_of_money -= money.amount
-    return self
+    if self.sum_of_money < money.amount
+      raise ArgumentError
+    else
+      self.sum_of_money -= money.amount
+      return self
+    end
   end
 
   def merge(other_wallet)
