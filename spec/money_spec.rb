@@ -2,6 +2,7 @@ require "spec_helper"
 
 RSpec.describe Money do
   let(:money) {Money.new(amount: amount)}
+  let(:amount) { 100 }
 
   describe '#amount' do
     subject { money.amount }
@@ -24,7 +25,6 @@ RSpec.describe Money do
   end
 
   describe '#==' do
-    let(:amount) { 100 }
 
     subject { money == other }
 
@@ -50,8 +50,6 @@ RSpec.describe Money do
   end
 
   describe '#+' do
-    let(:amount) { 100 }
-
     subject { money + Money.new(amount: 100) }
 
     context '100円に100円足された時' do 
@@ -60,8 +58,6 @@ RSpec.describe Money do
   end
 
   describe '#-' do
-    let(:amount) { 100 }
-
     subject {money - Money.new(amount:100) }
 
     context '100円から100円引いた時' do 
