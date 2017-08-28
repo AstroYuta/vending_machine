@@ -12,7 +12,7 @@ class Wallet
     return self
   end
 
-  def remove(money)
+  def take_out(money)
     if self.sum_of_money < money.amount
       raise ArgumentError
     else

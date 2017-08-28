@@ -18,11 +18,11 @@ RSpec.describe Wallet do
     end
 
     context '初めに1000円入っていて、そこから500円取り出すとき' do 
-      it { expect(wallet.remove(Money.new(amount: 500)).sum_of_money).to eq 500 }
+      it { expect(wallet.take_out(Money.new(amount: 500)).sum_of_money).to eq 500 }
     end
 
     context '初めに1000円入っていて、そこから5000円取り出すとき' do
-      it { expect { wallet.remove(Money.new(amount: 5000)) }.to raise_error(ArgumentError) }
+      it { expect { wallet.take_out(Money.new(amount: 5000)) }.to raise_error(ArgumentError) }
 
     end
 
