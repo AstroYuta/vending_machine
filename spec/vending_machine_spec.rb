@@ -15,6 +15,14 @@ RSpec.describe VendingMachine do
 
       it { is_expected.to eq 200 }
     end
+
+    context '500円投入されたとき' do
+      let(:amount_of_inserted_money) { 500 }
+
+      subject { machine.calculate_inserted_money }
+
+      it { is_expected.to eq 500 }
+    end
   end
 end
 
