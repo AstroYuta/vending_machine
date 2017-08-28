@@ -21,9 +21,19 @@ RSpec.describe VendingMachine do
 
     subject { machine.insert_money(Money.new(amount: amount_of_inserted_money)) }
 
-    context '初めて100円足したとき' do
+    context '100円投入したとき' do
       let(:amount_of_inserted_money) { 100 }
       it { expect(subject.calculate_inserted_money).to eq 100 }
+    end
+
+    context '-100円投入したとき' do
+      let(:amount_of_inserted_money) { -100 }
+      it { expect {subject}.to raise_error ArgumentError }
+    end
+
+    context '100円投入してから、50円投入したとき' do
+      let(:amount_of_inserted_money) { 100 }
+      it { expect(subject.insert_money(Money.new(amount: 50)).calculate_inserted_money).to eq 150 }
     end
   end
 end
