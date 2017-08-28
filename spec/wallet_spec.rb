@@ -1,13 +1,12 @@
 require "spec_helper"
 require "wallet"
-require "money"
 
 RSpec.describe Wallet do
-  let(:wallet) { Wallet.new(money: Money.new(amount: amount)) }
+  let(:wallet) { Wallet.new(money: Money.new(amount: default_money_amount)) }
 
   describe '#sum_of_money' do
     subject { wallet.sum_of_money }
-    let(:amount) { 1000 }
+    let(:default_money_amount) { 1000 }
 
     context '初めに1000円入っている時' do
       it {is_expected.to eq 1000}
