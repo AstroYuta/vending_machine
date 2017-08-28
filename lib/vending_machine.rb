@@ -4,24 +4,23 @@ require "money"
 require "wallet"
 
 class Machine
-  attr_accessor :product, :money
+  attr_accessor :product, :inserted_money
   def initialize(product:)
     @product = product
-    @money = Money.new(amount: 0)
+    @inserted_money = Money.new(amount: 0)
   end
 
   def calculate_inserted_money
-    self.money.amount
+    self.inserted_money.amount
   end
 
-  def insert_money(other_money)
-    self.money += other_money
+  def insert_money(other_inserted_money)
+    self.inserted_money += other_inserted_money
     self
   end
 
   def reset_inserted_money
-    self.money = Money.new(amount: 0)
+    self.inserted_money = Money.new(amount: 0)
     self
   end
-
 end

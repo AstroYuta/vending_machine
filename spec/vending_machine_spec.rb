@@ -42,8 +42,6 @@ RSpec.describe VendingMachine do
     context '100円投入してから取り消しをしたとき' do
       it { expect(subject.calculate_inserted_money).to eq 0 }
     end
-
-
   end
 
 
