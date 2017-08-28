@@ -22,15 +22,10 @@ RSpec.describe Wallet do
 
     context '初めに1000円入っていて、そこから5000円取り出すとき' do
       it { expect { wallet.take_out(Money.new(amount: 5000)) }.to raise_error(ArgumentError) }
-
     end
-
 
     context '1000円入っている財布と1000入っている財布を統合したとき' do
       it { expect(wallet.merge(Wallet.new(money: Money.new(amount: 1000))).sum_of_money).to eq 2000 }
-
     end
-
   end
-
 end
