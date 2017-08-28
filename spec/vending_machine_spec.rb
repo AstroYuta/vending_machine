@@ -3,10 +3,10 @@ require "spec_helper"
 RSpec.describe VendingMachine do
 
   let(:machine) { Machine.new(product: Product.new(name: name_of_product, price: price_of_product)) }
+  let(:name_of_product) { "Ayataka" }
+  let(:price_of_product) { 150 }
 
   describe '#calculate_inserted_money' do
-    let(:name_of_product) { "Ayataka" }
-    let(:price_of_product) { 150 }
 
     subject { machine.calculate_inserted_money }
 
@@ -36,6 +36,23 @@ RSpec.describe VendingMachine do
       it { expect(subject.insert_money(Money.new(amount: 50)).calculate_inserted_money).to eq 150 }
     end
   end
+
+  describe '#product.name' do
+    
+    subject { machine.product.name }
+
+    context 'Ayatakaが売られているとき' do
+      let(:name_of_product) { "Ayataka" } #あえてもう一度定義します
+      it { is_expected.to eq "Ayataka" }
+    end
+
+    context 'Irohasが売られているとき' do
+      let(:name_of_product) { "Irohas" }
+      it { is_expected.to eq "Irohas" }
+    end
+  end
+
+
 end
 
 
