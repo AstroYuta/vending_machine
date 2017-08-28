@@ -50,9 +50,11 @@ RSpec.describe Money do
   end
 
   describe '#+' do
-    subject { money + Money.new(amount: 100) }
+    subject { money + Money.new(amount: amount_of_other_money) }
 
-    context '100円に100円足された時' do 
+    context '100円足された時' do 
+      let(:amount_of_other_money) { 100 }
+
       it { expect(subject.amount).to eq 200 }
     end
   end
