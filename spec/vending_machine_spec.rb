@@ -2,26 +2,16 @@ require "spec_helper"
 
 RSpec.describe VendingMachine do
 
-  let(:machine) { Machine.new(product: Product.new(name: name_of_product, price: price_of_product), money: Money.new(amount: amount_of_inserted_money)) }
+  let(:machine) { Machine.new(product: Product.new(name: name_of_product, price: price_of_product)) }
 
   describe '#calculate_inserted_money' do
     let(:name_of_product) { "Ayataka" }
     let(:price_of_product) { 150 }
 
-    context '200円投入されたとき' do
-      let(:amount_of_inserted_money) { 200 }
+    subject { machine.calculate_inserted_money }
 
-      subject { machine.calculate_inserted_money }
-
-      it { is_expected.to eq 200 }
-    end
-
-    context '500円投入されたとき' do
-      let(:amount_of_inserted_money) { 500 }
-
-      subject { machine.calculate_inserted_money }
-
-      it { is_expected.to eq 500 }
+    context '初めVendingMachineには何もお金が投入されていないとき' do
+      it { is_expected.to eq 0 }
     end
   end
 end

@@ -5,9 +5,9 @@ require "wallet"
 
 class Machine
   attr_accessor :product, :money
-  def initialize(product:, money:)
+  def initialize(product:)
     @product = product
-    @money = money
+    @money = Money.new(amount: 0)
   end
 
   def calculate_inserted_money
