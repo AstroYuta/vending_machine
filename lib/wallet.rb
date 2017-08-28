@@ -8,7 +8,7 @@ class Wallet
 
   def add(money)
     self.money += money
-    return self
+    self
   end
 
   def take_out(money)
@@ -16,12 +16,12 @@ class Wallet
       raise ArgumentError
     end
     self.money -= money
-    return self
+    self
   end
 
   def merge(other_wallet)
     self.money += other_wallet.money
-    return self
+    self
   end
 
   def sum_of_money
