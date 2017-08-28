@@ -1,5 +1,4 @@
 require "spec_helper"
-require "wallet"
 
 RSpec.describe Wallet do
   let(:wallet) { Wallet.new(money: Money.new(amount: default_money_amount)) }

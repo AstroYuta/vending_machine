@@ -1,5 +1,3 @@
-require 'money'
-
 class Wallet
   attr_accessor :money
   def initialize(money:)
