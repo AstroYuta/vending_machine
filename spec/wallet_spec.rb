@@ -3,6 +3,7 @@ require "wallet"
 
 RSpec.describe Wallet do
   let(:wallet) { Wallet.new(money: Money.new(amount: default_money_amount)) }
+  let(:default_money_amount) { 1000 }
 
   describe '#sum_of_money' do
     subject { wallet.sum_of_money }
@@ -25,15 +26,9 @@ RSpec.describe Wallet do
       }
       it { is_expected.to eq 500 }
     end
-
-    context '1000円入っている財布と1000入っている財布を統合したとき' do
-      it { expect(wallet.merge(Wallet.new(money: Money.new(amount: 1000))).sum_of_money).to eq 2000 }
-    end
   end
 
   describe '#add' do
-    let(:default_money_amount) { 1000 }
-
     subject { wallet.add(Money.new(amount: add_money_amount)) }
 
     context '500円足した場合' do
@@ -55,8 +50,6 @@ RSpec.describe Wallet do
   end
 
   describe '#take_out' do
-    let(:default_money_amount) { 1000 }
-
     subject { wallet.take_out(Money.new(amount: take_out_money_amount)) }
 
     context '100円引いた場合' do
@@ -75,5 +68,17 @@ RSpec.describe Wallet do
         expect { subject }.to raise_error ArgumentError
       }
     end
+  end
+
+  describe '#merge' do
+    let(:other_wallet) {
+      Wallet.new(money: Money.new(amount: 100))
+    }
+    subject { wallet.merge(other_wallet) }
+
+    it {
+      is_expected.to be_a Wallet
+      expect(subject.money.amount).to eq 1100
+    }
   end
 end
