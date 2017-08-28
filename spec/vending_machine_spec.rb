@@ -15,9 +15,7 @@ RSpec.describe VendingMachine do
     end
   end
 
-  describe '#insert_money' do
-    let(:name_of_product) { "Ayataka" }
-    let(:price_of_product) { 150 }    
+  describe '#insert_money' do   
 
     subject { machine.insert_money(Money.new(amount: amount_of_inserted_money)) }
 
@@ -36,6 +34,18 @@ RSpec.describe VendingMachine do
       it { expect(subject.insert_money(Money.new(amount: 50)).calculate_inserted_money).to eq 150 }
     end
   end
+
+  describe '#reset_inserted_money' do
+    
+    subject { machine.insert_money(Money.new(amount: 100)).reset_inserted_money }
+
+    context '100円投入してから取り消しをしたとき' do
+      it { expect(subject.calculate_inserted_money).to eq 0 }
+    end
+
+
+  end
+
 
   describe '#product.name' do
     

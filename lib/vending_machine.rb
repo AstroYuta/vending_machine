@@ -19,4 +19,9 @@ class Machine
     self
   end
 
+  def reset_inserted_money
+    self.money = Money.new(amount: 0)
+    self
+  end
+
 end
