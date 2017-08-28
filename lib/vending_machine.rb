@@ -3,6 +3,15 @@ require "product"
 require "money"
 require "wallet"
 
-module VendingMachine
-  # Your code goes here...
+class Machine
+  attr_accessor :product, :money
+  def initialize(product:, money:)
+    @product = product
+    @money = money
+  end
+
+  def calculate_inserted_money
+    self.money.amount
+  end
+
 end
