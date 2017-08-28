@@ -16,9 +16,7 @@ class Money
     Money.new(amount: self.amount + other_money.amount)
   end
 
-  def minus(other_money)
-    amount_new = self.amount - other_money.amount
-    new_money = Money.new(amount: amount_new)
-    return new_money
+  def -(other_money)
+    Money.new(amount: self.amount - other_money.amount)
   end
 end

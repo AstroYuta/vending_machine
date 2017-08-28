@@ -59,10 +59,10 @@ RSpec.describe Money do
     end
   end
 
-  describe '#minus' do
+  describe '#-' do
     let(:amount) { 100 }
 
-    subject {money.minus(Money.new(amount:100)) }
+    subject {money - Money.new(amount:100) }
 
     context '100円から100円引いた時' do 
       it { expect(subject.amount).to eq 0 }
