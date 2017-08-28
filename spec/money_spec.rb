@@ -68,7 +68,10 @@ RSpec.describe Money do
     context '100円引いた時' do 
       let(:amount_of_other_money) { 100 }
 
-      it { expect(subject.amount).to eq 0 }
+      it { 
+        is_expected.to be_a(Money)
+        expect(subject.amount).to eq 0 
+      }
     end
 
   end
