@@ -83,6 +83,11 @@ RSpec.describe VendingMachine do
       let(:amount_of_inserted_money) { 200 }
       it { expect(subject.calculate_inserted_money).to eq 50 }
     end
+
+    context '100円入れて購入するとき(お金が足りないとき)' do
+      let(:amount_of_inserted_money) { 100 }
+      it { expect {subject}.to raise_error ArgumentError }      
+    end
   end
 end
 
