@@ -14,4 +14,9 @@ class Machine
     self.money.amount
   end
 
+  def insert_money(other_money)
+    self.money += other_money
+    self
+  end
+
 end
