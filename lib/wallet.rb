@@ -15,10 +15,9 @@ class Wallet
   def take_out(money)
     if self.sum_of_money < money.amount
       raise ArgumentError
-    else
-      self.sum_of_money -= money.amount
-      return self
     end
+    self.sum_of_money -= money.amount
+    return self
   end
 
   def merge(other_wallet)
