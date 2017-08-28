@@ -45,7 +45,6 @@ RSpec.describe VendingMachine do
     end
   end
 
-
   describe '#product.name' do
     
     subject { machine.product.name }
