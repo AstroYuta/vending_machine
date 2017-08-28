@@ -1,27 +1,30 @@
 require 'money'
 
 class Wallet
-  attr_accessor :money, :sum_of_money
+  attr_accessor :money
   def initialize(money:)
     @money = money
-    @sum_of_money = money.amount
   end
 
   def add(money)
-    self.sum_of_money += money.amount
+    self.money += money
     return self
   end
 
   def take_out(money)
-    if self.sum_of_money < money.amount
+    if self.money.amount < money.amount
       raise ArgumentError
     end
-    self.sum_of_money -= money.amount
+    self.money -= money
     return self
   end
 
   def merge(other_wallet)
-    self.sum_of_money += other_wallet.sum_of_money
+    self.money += other_wallet.money
     return self
+  end
+
+  def sum_of_money
+    self.money.amount
   end
 end
