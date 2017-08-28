@@ -52,7 +52,20 @@ RSpec.describe VendingMachine do
     end
   end
 
+  describe '#product.price' do
 
+    subject { machine.product.price }
+
+    context '150円で売られているとき' do
+      let(:price_of_product) { 150 } #ここでもあえてもう一度定義しています
+      it { is_expected.to eq 150 }
+    end
+
+    context '180円で売られているとき' do
+      let(:price_of_product) { 180 }
+      it { is_expected.to eq 180 }
+    end
+  end
 end
 
 
