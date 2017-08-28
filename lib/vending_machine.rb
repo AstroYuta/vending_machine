@@ -23,4 +23,10 @@ class Machine
     self.inserted_money = Money.new(amount: 0)
     self
   end
+
+  def buy
+    self.inserted_money = Money.new(amount: self.calculate_inserted_money - self.product.price)
+    self
+  end
+
 end
