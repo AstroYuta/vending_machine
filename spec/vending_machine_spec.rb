@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe VendingMachine do
 
   let(:machine) { Machine.new(product: Product.new(name: name_of_product, price: price_of_product)) }
-  let(:name_of_product) { "Ayataka" }
+  let(:name_of_product) { "綾鷹" }
   let(:price_of_product) { 150 }
 
   describe '#calculate_inserted_money' do
@@ -49,9 +49,9 @@ RSpec.describe VendingMachine do
     
     subject { machine.product.name }
 
-    context 'Ayatakaが売られているとき' do
-      let(:name_of_product) { "Ayataka" } #あえてもう一度定義します
-      it { is_expected.to eq "Ayataka" }
+    context '綾鷹が売られているとき' do
+      let(:name_of_product) { "綾鷹" } #あえてもう一度定義します
+      it { is_expected.to eq "綾鷹" }
     end
 
     context 'Irohasが売られているとき' do
@@ -74,6 +74,15 @@ RSpec.describe VendingMachine do
       it { is_expected.to eq 180 }
     end
   end
+
+  describe '#add_product' do
+    
+    subject { machine.add_product(Product.new(name: name_of_product, price: price_of_product)) }
+
+    context '180円のヘルシア緑茶'
+
+  end
+
 
   describe '#buy' do
 
