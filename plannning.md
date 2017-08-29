@@ -30,3 +30,10 @@
   - 容量
   - 色
 
+##Todo
+- #add_productのspec追加
+ - 2本同じproductが追加されたときは統合するように仕様変更
+- #buyのspec追加
+ - 2本productが存在する場合に、任意のものを選んで買う場合
+- #reset_productを追加
+- リファクタリング  
