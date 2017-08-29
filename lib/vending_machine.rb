@@ -6,7 +6,8 @@ require "wallet"
 class Machine
   attr_accessor :product, :inserted_money
   def initialize(product:)
-    @product = product
+    name_of_product = product.name
+    @product = {:name_of_product => product}
     @inserted_money = Money.new(amount: 0)
   end
 
@@ -24,8 +25,13 @@ class Machine
     self
   end
 
-  def buy
-    self.inserted_money = Money.new(amount: self.calculate_inserted_money - self.product.price)
+  def add_product(other_product)
+    self.product.store(other_product.name, other_product)
+    self
+  end
+
+  def buy(name_of_product)
+    self.inserted_money = Money.new(amount: self.calculate_inserted_money - self.product[:name_of_product].price)
     self
   end
 

@@ -47,7 +47,7 @@ RSpec.describe VendingMachine do
 
   describe '#product.name' do
     
-    subject { machine.product.name }
+    subject { machine.product[:name_of_product].name }
 
     context '綾鷹が売られているとき' do
       let(:name_of_product) { "綾鷹" } #あえてもう一度定義します
@@ -62,7 +62,7 @@ RSpec.describe VendingMachine do
 
   describe '#product.price' do
 
-    subject { machine.product.price }
+    subject { machine.product[:name_of_product].price }
 
     context '150円で売られているとき' do
       let(:price_of_product) { 150 } #ここでもあえてもう一度定義しています
@@ -79,14 +79,22 @@ RSpec.describe VendingMachine do
     
     subject { machine.add_product(Product.new(name: name_of_product, price: price_of_product)) }
 
-    context '180円のヘルシア緑茶'
+    context '180円のヘルシア緑茶を追加したとき' do
+      let(:name_of_product) { "ヘルシア緑茶" }
+      let(:price_of_product) { 180 }
 
+      it{ expect(subject.product.length).to eq 2 }
+      it{ expect(subject.product[:name_of_product]).to be_a Product }
+      it{ expect(subject.product[:name_of_product].name).to eq "ヘルシア緑茶" }
+      it{ expect(subject.product[:name_of_product].price).to eq 180 }
+    end
   end
 
 
   describe '#buy' do
 
-    subject { machine.insert_money(Money.new(amount: amount_of_inserted_money)).buy }
+    subject { machine.insert_money(Money.new(amount: amount_of_inserted_money)).buy(:name_of_product) }
+    let(:name_of_product) { "綾鷹" }
 
     context '200円入れて購入するとき' do
       let(:amount_of_inserted_money) { 200 }
