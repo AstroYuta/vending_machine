@@ -20,10 +20,21 @@ RSpec.describe Product do
   end
 
   describe '#price' do
-    let(:price) { 150 }
+    context '150円の場合' do
+      let(:price) { 150 }
 
-    subject { product.price }
+      subject { product.price }
 
-    it { is_expected.to eq 150 }
+      it { is_expected.to eq 150 }
+    end
+
+    context '-100円の場合' do
+      let(:price) { -100 }
+
+      subject { product.price }
+
+      it { expect {subject}.to raise_error ArgumentError }
+    end
+
   end
 end
