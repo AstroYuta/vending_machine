@@ -57,6 +57,27 @@ RSpec.describe VendingMachine do
     end
   end
 
+  describe '#remove_having_product' do
+
+    subject { machine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first)).add_having_product(Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).remove_having_product(name_of_removing_product) }
+    let(:name_of_added_product_at_first) { "綾鷹" }
+    let(:price_of_added_product_at_first) { 150 }
+    let(:name_of_added_product_at_second) { "ヘルシア緑茶" }
+    let(:price_of_added_product_at_second) { 180 }
+
+    context '綾鷹をVendingMachineから取りのぞくとき' do
+      let(:name_of_removing_product) { "綾鷹" }
+      it { expect(subject.having_product.length).to eq 1 }
+      it { expect(subject.having_product[name_of_removing_product]).to be_nil }
+    end
+
+    context 'ヘルシア緑茶をVendingMachineから取り除くとき' do
+      let(:name_of_removing_product) { "ヘルシア緑茶" }
+      it { expect(subject.having_product.length).to eq 1 }
+      it { expect(subject.having_product[name_of_removing_product]).to be_nil }
+    end
+  end
+
   describe '#buy' do
 
     subject { machine.add_having_product(Product.new(name: name_of_product, price: price_of_product)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_product) }

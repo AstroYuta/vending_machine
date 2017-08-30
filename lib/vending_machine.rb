@@ -30,6 +30,11 @@ class Machine
     self
   end
 
+  def remove_having_product(name_of_product)
+    self.having_product.delete(name_of_product)
+    self
+  end
+  
   def buy(name_of_product)
     self.inserted_money = Money.new(amount: self.calculate_inserted_money - self.having_product[name_of_product].price)
     self.buyed_product.store(name_of_product, self.having_product[name_of_product])
