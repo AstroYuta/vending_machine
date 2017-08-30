@@ -42,30 +42,34 @@ RSpec.describe VendingMachine do
     end
   end
 
-  describe '#add_product' do
+  describe '#add_having_product' do
     
-    subject { machine.add_product(Product.new(name: name_of_product, price: price_of_product)) }
+    subject { machine.add_having_product(Product.new(name: name_of_product, price: price_of_product)) }
 
     context '180円のヘルシア緑茶を追加したとき' do
       let(:name_of_product) { "ヘルシア緑茶" }
       let(:price_of_product) { 180 }
 
-      it{ expect(subject.product.length).to eq 1 }
-      it{ expect(subject.product[name_of_product]).to be_a Product }
-      it{ expect(subject.product[name_of_product].name).to eq "ヘルシア緑茶" }
-      it{ expect(subject.product[name_of_product].price).to eq 180 }
+      it{ expect(subject.having_product.length).to eq 1 }
+      it{ expect(subject.having_product[name_of_product]).to be_a Product }
+      it{ expect(subject.having_product[name_of_product].name).to eq "ヘルシア緑茶" }
+      it{ expect(subject.having_product[name_of_product].price).to eq 180 }
     end
   end
 
   describe '#buy' do
 
-    subject { machine.add_product(Product.new(name: name_of_product, price: price_of_product)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_product) }
+    subject { machine.add_having_product(Product.new(name: name_of_product, price: price_of_product)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_product) }
     let(:name_of_product) { "綾鷹" }
     let(:price_of_product) { 150 }
 
     context '200円入れて購入するとき' do
       let(:amount_of_inserted_money) { 200 }
       it { expect(subject.calculate_inserted_money).to eq 50 }
+      it { expect(subject.buyed_product.length).to eq 1 }      
+      it { expect(subject.buyed_product[name_of_product]).to be_a Product }
+      it { expect(subject.buyed_product[name_of_product].name).to eq "綾鷹" }
+      it { expect(subject.buyed_product[name_of_product].price).to eq 150 }
     end
 
     context '100円入れて購入するとき(お金が足りないとき)' do
