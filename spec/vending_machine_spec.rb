@@ -1,20 +1,20 @@
 require "spec_helper"
 
-RSpec.describe VendingMachine do
-  let(:machine) { Machine.new }
+RSpec.describe Vendingmachine do
+  let(:vendingmachine) { Vendingmachine.new }
 
   describe '#calculate_inserted_money' do
 
-    subject { machine.calculate_inserted_money }
+    subject { vendingmachine.calculate_inserted_money }
 
-    context '初めVendingMachineには何もお金が投入されていないとき' do
+    context '初めVendingVendingvendingmachineには何もお金が投入されていないとき' do
       it { is_expected.to eq 0 }
     end
   end
 
   describe '#insert_money' do   
 
-    subject { machine.insert_money(Money.new(amount: amount_of_inserted_money)) }
+    subject { vendingmachine.insert_money(Money.new(amount: amount_of_inserted_money)) }
 
     context '100円投入したとき' do
       let(:amount_of_inserted_money) { 100 }
@@ -34,7 +34,7 @@ RSpec.describe VendingMachine do
 
   describe '#reset_inserted_money' do
     
-    subject { machine.insert_money(Money.new(amount: amount_of_inserted_money)).reset_inserted_money }
+    subject { vendingmachine.insert_money(Money.new(amount: amount_of_inserted_money)).reset_inserted_money }
 
     context '100円投入してから取り消しをしたとき' do
       let(:amount_of_inserted_money) { 100 }
@@ -44,7 +44,7 @@ RSpec.describe VendingMachine do
 
   describe '#add_having_product' do
     
-    subject { machine.add_having_product(Product.new(name: name_of_product, price: price_of_product)) }
+    subject { vendingmachine.add_having_product(Product.new(name: name_of_product, price: price_of_product)) }
 
     context '180円のヘルシア緑茶を追加したとき' do
       let(:name_of_product) { "ヘルシア緑茶" }
@@ -59,19 +59,19 @@ RSpec.describe VendingMachine do
 
   describe '#remove_having_product' do
 
-    subject { machine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first)).add_having_product(Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).remove_having_product(name_of_removing_product) }
+    subject { vendingmachine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first)).add_having_product(Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).remove_having_product(name_of_removing_product) }
     let(:name_of_added_product_at_first) { "綾鷹" }
     let(:price_of_added_product_at_first) { 150 }
     let(:name_of_added_product_at_second) { "ヘルシア緑茶" }
     let(:price_of_added_product_at_second) { 180 }
 
-    context '綾鷹をVendingMachineから取りのぞくとき' do
+    context '綾鷹をVendingVendingvendingmachineから取りのぞくとき' do
       let(:name_of_removing_product) { "綾鷹" }
       it { expect(subject.having_product.length).to eq 1 }
       it { expect(subject.having_product[name_of_removing_product]).to be_nil }
     end
 
-    context 'ヘルシア緑茶をVendingMachineから取り除くとき' do
+    context 'ヘルシア緑茶をVendingVendingvendingmachineから取り除くとき' do
       let(:name_of_removing_product) { "ヘルシア緑茶" }
       it { expect(subject.having_product.length).to eq 1 }
       it { expect(subject.having_product[name_of_removing_product]).to be_nil }
@@ -80,7 +80,7 @@ RSpec.describe VendingMachine do
 
   describe '#buy' do
 
-    subject { machine.add_having_product(Product.new(name: name_of_product, price: price_of_product)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_product) }
+    subject { vendingmachine.add_having_product(Product.new(name: name_of_product, price: price_of_product)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_product) }
     let(:name_of_product) { "綾鷹" }
     let(:price_of_product) { 150 }
 
@@ -101,10 +101,10 @@ RSpec.describe VendingMachine do
     end
   end
 
-  #以下は2商品がVendingMachineに入っている場合のテスト
+  #以下は2商品がVendingVendingvendingmachineに入っている場合のテスト
   describe '#buy' do
     
-    subject { machine.add_having_product(Product.new(name: "綾鷹", price: 150)).add_having_product(Product.new(name: "ヘルシア緑茶", price: 180)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_buyed_product_at_first) }
+    subject { vendingmachine.add_having_product(Product.new(name: "綾鷹", price: 150)).add_having_product(Product.new(name: "ヘルシア緑茶", price: 180)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_buyed_product_at_first) }
     context '各々一つずつ買うとき' do
       context '200円投入して綾鷹を買うとき' do
         let(:amount_of_inserted_money) { 200 }

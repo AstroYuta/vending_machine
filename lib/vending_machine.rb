@@ -3,7 +3,7 @@ require "product"
 require "money"
 require "wallet"
 
-class Machine
+class Vendingmachine
   attr_accessor :having_product, :buyed_product, :inserted_money
   def initialize
     @having_product = {}
