@@ -26,7 +26,7 @@ class Vendingmachine
   end
 
   def add_having_product(other_product)
-    self.having_product.store(other_product.name, other_product)
+    self.having_product[other_product.name] = other_product
     self
   end
 
