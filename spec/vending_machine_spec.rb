@@ -48,12 +48,12 @@ RSpec.describe Vendingmachine do
 
     context '180円のヘルシア緑茶を追加したとき' do
       let(:name_of_product) { "ヘルシア緑茶" }
-      let(:price_of_product) { 180 }
+      let(:price_of_product) { Money.new(amount: 180) }
 
       it{ expect(subject.having_product.length).to eq 1 }
       it{ expect(subject.having_product[name_of_product]).to be_a Product }
       it{ expect(subject.having_product[name_of_product].name).to eq "ヘルシア緑茶" }
-      it{ expect(subject.having_product[name_of_product].price).to eq 180 }
+      it{ expect(subject.having_product[name_of_product].price.amount).to eq 180 }
     end
   end
 
@@ -61,9 +61,9 @@ RSpec.describe Vendingmachine do
 
     subject { vendingmachine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first)).add_having_product(Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).remove_having_product(name_of_removing_product) }
     let(:name_of_added_product_at_first) { "綾鷹" }
-    let(:price_of_added_product_at_first) { 150 }
+    let(:price_of_added_product_at_first) { Money.new(amount: 150) }
     let(:name_of_added_product_at_second) { "ヘルシア緑茶" }
-    let(:price_of_added_product_at_second) { 180 }
+    let(:price_of_added_product_at_second) { Money.new(amount: 180) }
 
     context '綾鷹をVendingVendingvendingmachineから取りのぞくとき' do
       let(:name_of_removing_product) { "綾鷹" }
@@ -82,7 +82,7 @@ RSpec.describe Vendingmachine do
 
     subject { vendingmachine.add_having_product(Product.new(name: name_of_product, price: price_of_product)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_product) }
     let(:name_of_product) { "綾鷹" }
-    let(:price_of_product) { 150 }
+    let(:price_of_product) { Money.new(amount: 150) }
 
     context '200円入れて購入するとき' do
       let(:amount_of_inserted_money) { 200 }
@@ -91,7 +91,7 @@ RSpec.describe Vendingmachine do
       it { expect(subject.buyed_product.length).to eq 1 }      
       it { expect(subject.buyed_product[name_of_product]).to be_a Product }
       it { expect(subject.buyed_product[name_of_product].name).to eq "綾鷹" }
-      it { expect(subject.buyed_product[name_of_product].price).to eq 150 }
+      it { expect(subject.buyed_product[name_of_product].price.amount).to eq 150 }
     end
 
     context '100円入れて購入するとき(お金が足りないとき)' do
@@ -104,7 +104,7 @@ RSpec.describe Vendingmachine do
   #以下は2商品がVendingVendingvendingmachineに入っている場合のテスト
   describe '#buy' do
     
-    subject { vendingmachine.add_having_product(Product.new(name: "綾鷹", price: 150)).add_having_product(Product.new(name: "ヘルシア緑茶", price: 180)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_buyed_product_at_first) }
+    subject { vendingmachine.add_having_product(Product.new(name: "綾鷹", price: Money.new(amount: 150))).add_having_product(Product.new(name: "ヘルシア緑茶", price: Money.new(amount: 180))).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_buyed_product_at_first) }
     context '各々一つずつ買うとき' do
       context '200円投入して綾鷹を買うとき' do
         let(:amount_of_inserted_money) { 200 }
@@ -114,7 +114,7 @@ RSpec.describe Vendingmachine do
         it { expect(subject.buyed_product.length).to eq 1 }      
         it { expect(subject.buyed_product[name_of_buyed_product_at_first]).to be_a Product }
         it { expect(subject.buyed_product[name_of_buyed_product_at_first].name).to eq "綾鷹" }
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first].price).to eq 150 }
+        it { expect(subject.buyed_product[name_of_buyed_product_at_first].price.amount).to eq 150 }
       end
 
       context '200円投入してヘルシア緑茶を買うとき' do
@@ -125,7 +125,7 @@ RSpec.describe Vendingmachine do
         it { expect(subject.buyed_product.length).to eq 1 }      
         it { expect(subject.buyed_product[name_of_buyed_product_at_first]).to be_a Product }
         it { expect(subject.buyed_product[name_of_buyed_product_at_first].name).to eq "ヘルシア緑茶" }
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first].price).to eq 180 }      
+        it { expect(subject.buyed_product[name_of_buyed_product_at_first].price.amount).to eq 180 }      
       end
     end
 
@@ -139,10 +139,10 @@ RSpec.describe Vendingmachine do
         it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product.length).to eq 2 }
         it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_first]).to be_a Product }
         it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_first].name).to eq "綾鷹" }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_first].price).to eq 150 }
+        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_first].price.amount).to eq 150 }
         it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_second]).to be_a Product }
         it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_second].name).to eq "ヘルシア緑茶" }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_second].price).to eq 180 }
+        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_second].price.amount).to eq 180 }
       end
     end
   end

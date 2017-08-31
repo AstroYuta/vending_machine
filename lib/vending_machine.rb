@@ -36,7 +36,7 @@ class Vendingmachine
   end
   
   def buy(name_of_product)
-    self.inserted_money = Money.new(amount: self.calculate_inserted_money - self.having_product[name_of_product].price)
+    self.inserted_money -= self.having_product[name_of_product].price
     self.buyed_product.store(name_of_product, self.having_product[name_of_product])
     self
   end
