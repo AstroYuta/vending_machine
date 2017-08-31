@@ -8,7 +8,7 @@ class Vendingmachine
   def initialize
     @having_product = {}
     @buyed_product = {}
-    @inserted_money = Money.new(amount: 0)
+    @inserted_money = Money::ZERO
   end
 
   def calculate_inserted_money

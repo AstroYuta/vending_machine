@@ -7,6 +7,8 @@ class Money
     end
   end
 
+  ZERO = Money.new(amount: 0)
+
   def ==(other_money)
     other_money.is_a?(Money) &&
     self.amount == other_money.amount
