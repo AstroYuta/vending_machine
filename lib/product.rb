@@ -3,7 +3,7 @@ class Product
   def initialize(name:, price:)
     @name = name
     @price = price
-    if @price < 0
+    if @price.amount < 0
       raise ArgumentError
     end
   end
