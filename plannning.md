@@ -32,9 +32,24 @@
 
 ##Todo
 - #add_productのspec追加
- - 2本同じproductが追加されたときは統合するように仕様変更
+ - 2本同じproductが追加されたときは統合するように仕様変更 => DONE
 - #buyのspec追加
  - 2本productが存在する場合に、任意のものを選んで買う場合 => DONE
 - #reset_productを追加
  - #reset_productと#remove_productかな
-- リファクタリング  
+- リファクタリング
+
+#個数に関するspecについて
+##実装したいこと
+- VendingMachineの#add_having_productで、任意の種類のproductが一気に渡せる
+ - イメージ:
+ machine = VendingMachine.new
+ machine.add_having_product(Product.new(hoge), Product.new(hogehoge), ....)ができる
+ - 数が可変の引数をどう扱えばいいのだろう
+
+- VendingMachineの@having_productにproductの数という概念を加えたい
+ - having_productはhashで管理されている
+ - ここにどのように数に関するフラグを立てれば良いのか...
+ - product側で何本かを示すインスタンス変数を用意しようかと思ったが、本来productは商品1本1本そのものであり、
+ VendingMachineの中であるからこそ、数という概念が出てくる気がする=>のでVendingMachine側で実装すべきでは
+ - どうしよう...
