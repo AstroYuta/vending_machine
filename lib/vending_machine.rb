@@ -3,6 +3,8 @@ require "product"
 require "money"
 require "wallet"
 
+class ShortOfMoneyError < StandardError; end
+
 class Vendingmachine
   attr_accessor :having_product, :buyed_product, :inserted_money
   def initialize
@@ -39,7 +41,11 @@ class Vendingmachine
     if self.having_product.has_key?(name_of_product) == false
       raise ArgumentError
     end
-    self.inserted_money -= self.having_product[name_of_product].price
+    begin
+      self.inserted_money -= self.having_product[name_of_product].price
+    rescue
+      raise ShortOfMoneyError
+    end
     self.buyed_product[name_of_product] = self.having_product[name_of_product]
     self
   end

@@ -103,7 +103,7 @@ RSpec.describe Vendingmachine do
       context '100円入れて購入するとき(お金が足りないとき)' do
         let(:amount_of_inserted_money) { 100 }
 
-        it { expect {subject}.to raise_error ArgumentError }      
+        it { expect {subject}.to raise_error ShortOfMoneyError }      
       end
 
       context 'having_productにないproductを買おうとしたとき' do
