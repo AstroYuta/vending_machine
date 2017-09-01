@@ -36,6 +36,9 @@ class Vendingmachine
   end
   
   def buy(name_of_product)
+    if self.having_product.has_key?(name_of_product) == false
+      raise ArgumentError
+    end
     self.inserted_money -= self.having_product[name_of_product].price
     self.buyed_product[name_of_product] = self.having_product[name_of_product]
     self
