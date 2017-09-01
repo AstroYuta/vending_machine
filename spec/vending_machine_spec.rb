@@ -80,69 +80,84 @@ RSpec.describe Vendingmachine do
 
   describe '#buy' do
 
-    subject { vendingmachine.add_having_product(Product.new(name: name_of_product, price: price_of_product)).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_product) }
-    let(:name_of_product) { "綾鷹" }
-    let(:price_of_product) { Money.new(amount: 150) }
+    subject { vendingmachine.buy(name_of_buyed_product) }
 
-    context '200円入れて購入するとき' do
-      let(:amount_of_inserted_money) { 200 }
+    context '一つだけproductを入れ、それを購入するとき' do
+      before {
+        vendingmachine.add_having_product(Product.new(name: name_of_added_product, price: price_of_added_product)).insert_money(Money.new(amount: amount_of_inserted_money))
+      }
+      let(:name_of_added_product) { "綾鷹" }
+      let(:price_of_added_product) { Money.new(amount: 150) }
+      let(:name_of_buyed_product) { "綾鷹" }
 
-      it { expect(subject.calculate_inserted_money).to eq 50 }
-      it { expect(subject.buyed_product.length).to eq 1 }      
-      it { expect(subject.buyed_product[name_of_product]).to be_a Product }
-      it { expect(subject.buyed_product[name_of_product].name).to eq "綾鷹" }
-      it { expect(subject.buyed_product[name_of_product].price.amount).to eq 150 }
-    end
-
-    context '100円入れて購入するとき(お金が足りないとき)' do
-      let(:amount_of_inserted_money) { 100 }
-
-      it { expect {subject}.to raise_error ArgumentError }      
-    end
-  end
-
-  #以下は2商品がVendingVendingvendingmachineに入っている場合のテスト
-  describe '#buy' do
-    
-    subject { vendingmachine.add_having_product(Product.new(name: "綾鷹", price: Money.new(amount: 150))).add_having_product(Product.new(name: "ヘルシア緑茶", price: Money.new(amount: 180))).insert_money(Money.new(amount: amount_of_inserted_money)).buy(name_of_buyed_product_at_first) }
-    context '各々一つずつ買うとき' do
-      context '200円投入して綾鷹を買うとき' do
+      context '200円入れて購入するとき' do
         let(:amount_of_inserted_money) { 200 }
-        let(:name_of_buyed_product_at_first) { "綾鷹" }
 
         it { expect(subject.calculate_inserted_money).to eq 50 }
         it { expect(subject.buyed_product.length).to eq 1 }      
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first]).to be_a Product }
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first].name).to eq "綾鷹" }
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first].price.amount).to eq 150 }
+        it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
+        it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "綾鷹" }
+        it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 150 }
       end
 
-      context '200円投入してヘルシア緑茶を買うとき' do
-        let(:amount_of_inserted_money) { 200 }
-        let(:name_of_buyed_product_at_first) { "ヘルシア緑茶" }
+      context '100円入れて購入するとき(お金が足りないとき)' do
+        let(:amount_of_inserted_money) { 100 }
 
-        it { expect(subject.calculate_inserted_money).to eq 20 }
-        it { expect(subject.buyed_product.length).to eq 1 }      
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first]).to be_a Product }
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first].name).to eq "ヘルシア緑茶" }
-        it { expect(subject.buyed_product[name_of_buyed_product_at_first].price.amount).to eq 180 }      
+        it { expect {subject}.to raise_error ArgumentError }      
       end
     end
+    
+    context '二つproductを入れ、それらを購入するとき' do
+      before {
+        vendingmachine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first)).add_having_product(Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).insert_money(Money.new(amount: amount_of_inserted_money))
+      }
+      let(:name_of_added_product_at_first) { "綾鷹" }
+      let(:price_of_added_product_at_first) { Money.new(amount: 150) }
+      let(:name_of_added_product_at_second) { "ヘルシア緑茶" }
+      let(:price_of_added_product_at_second) { Money.new(amount:180) }
 
-    context '同時に2商品購入するとき' do
-      context '500円投入して綾鷹とヘルシア緑茶を買うとき' do
-        let(:amount_of_inserted_money) { 500 }
-        let(:name_of_buyed_product_at_first) { "綾鷹" }
-        let(:name_of_buyed_product_at_second) { "ヘルシア緑茶" }
+      context '各々一つずつ買うとき' do
+        context '200円投入して綾鷹を買うとき' do
+          let(:amount_of_inserted_money) { 200 }
+          let(:name_of_buyed_product) { "綾鷹" }
 
-        it { expect(subject.buy(name_of_buyed_product_at_second).calculate_inserted_money).to eq 170 }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product.length).to eq 2 }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_first]).to be_a Product }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_first].name).to eq "綾鷹" }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_first].price.amount).to eq 150 }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_second]).to be_a Product }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_second].name).to eq "ヘルシア緑茶" }
-        it { expect(subject.buy(name_of_buyed_product_at_second).buyed_product[name_of_buyed_product_at_second].price.amount).to eq 180 }
+          it { expect(subject.calculate_inserted_money).to eq 50 }
+          it { expect(subject.buyed_product.length).to eq 1 }      
+          it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
+          it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "綾鷹" }
+          it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 150 }
+        end
+
+        context '200円投入してヘルシア緑茶を買うとき' do
+          let(:amount_of_inserted_money) { 200 }
+          let(:name_of_buyed_product) { "ヘルシア緑茶" }
+
+          it { expect(subject.calculate_inserted_money).to eq 20 }
+          it { expect(subject.buyed_product.length).to eq 1 }      
+          it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
+          it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "ヘルシア緑茶" }
+          it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 180 }      
+        end
+      end
+
+      context '続けて2商品購入するとき' do
+        context '500円投入して綾鷹を購入、続いてヘルシア緑茶を買うとき' do
+          before {
+            vendingmachine.buy(name_of_buyed_product_at_second)
+          }
+          let(:amount_of_inserted_money) { 500 }
+          let(:name_of_buyed_product) { "綾鷹" }
+          let(:name_of_buyed_product_at_second) { "ヘルシア緑茶" }
+
+          it { expect(subject.calculate_inserted_money).to eq 170 }
+          it { expect(subject.buyed_product.length).to eq 2 }
+          it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
+          it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "綾鷹" }
+          it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 150 }
+          it { expect(subject.buyed_product[name_of_buyed_product_at_second]).to be_a Product }
+          it { expect(subject.buyed_product[name_of_buyed_product_at_second].name).to eq "ヘルシア緑茶" }
+          it { expect(subject.buyed_product[name_of_buyed_product_at_second].price.amount).to eq 180 }
+        end
       end
     end
   end
