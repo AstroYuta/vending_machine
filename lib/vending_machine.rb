@@ -27,8 +27,10 @@ class Vendingmachine
     self
   end
 
-  def add_having_product(other_product)
-    self.having_product[other_product.name] = other_product
+  def add_having_product(*other_product)
+    other_product.each do |adding_product|
+      self.having_product[adding_product.name] = adding_product
+    end
     self
   end
 

@@ -44,16 +44,21 @@ RSpec.describe Vendingmachine do
 
   describe '#add_having_product' do
     
-    subject { vendingmachine.add_having_product(Product.new(name: name_of_product, price: price_of_product)) }
+    subject { vendingmachine.add_having_product(Product.new(name: name_of_product1, price: price_of_product1), Product.new(name: name_of_product2, price: price_of_product2)) }
 
-    context '180円のヘルシア緑茶を追加したとき' do
-      let(:name_of_product) { "ヘルシア緑茶" }
-      let(:price_of_product) { Money.new(amount: 180) }
+    context '180円のヘルシア緑茶と150の綾鷹を追加したとき' do
+      let(:name_of_product1) { "ヘルシア緑茶" }
+      let(:price_of_product1) { Money.new(amount: 180) }
+      let(:name_of_product2) { "綾鷹" }
+      let(:price_of_product2) { Money.new(amount: 150) }
 
-      it{ expect(subject.having_product.length).to eq 1 }
-      it{ expect(subject.having_product[name_of_product]).to be_a Product }
-      it{ expect(subject.having_product[name_of_product].name).to eq "ヘルシア緑茶" }
-      it{ expect(subject.having_product[name_of_product].price.amount).to eq 180 }
+      it{ expect(subject.having_product.length).to eq 2 }
+      it{ expect(subject.having_product[name_of_product1]).to be_a Product }
+      it{ expect(subject.having_product[name_of_product1].name).to eq "ヘルシア緑茶" }
+      it{ expect(subject.having_product[name_of_product1].price.amount).to eq 180 }
+      it{ expect(subject.having_product[name_of_product2]).to be_a Product }
+      it{ expect(subject.having_product[name_of_product2].name).to eq "綾鷹" }
+      it{ expect(subject.having_product[name_of_product2].price.amount).to eq 150 }      
     end
   end
 
