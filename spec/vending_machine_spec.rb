@@ -64,7 +64,7 @@ RSpec.describe Vendingmachine do
 
   describe '#remove_having_product' do
 
-    subject { vendingmachine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first)).add_having_product(Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).remove_having_product(name_of_removing_product) }
+    subject { vendingmachine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first), Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).remove_having_product(name_of_removing_product) }
     let(:name_of_added_product_at_first) { "綾鷹" }
     let(:price_of_added_product_at_first) { Money.new(amount: 150) }
     let(:name_of_added_product_at_second) { "ヘルシア緑茶" }
@@ -121,7 +121,7 @@ RSpec.describe Vendingmachine do
     
     context '二つproductを入れ、それらを購入するとき' do
       before {
-        vendingmachine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first)).add_having_product(Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).insert_money(Money.new(amount: amount_of_inserted_money))
+        vendingmachine.add_having_product(Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first), Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second)).insert_money(Money.new(amount: amount_of_inserted_money))
       }
       let(:name_of_added_product_at_first) { "綾鷹" }
       let(:price_of_added_product_at_first) { Money.new(amount: 150) }
