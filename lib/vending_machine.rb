@@ -34,8 +34,10 @@ class Vendingmachine
     self
   end
 
-  def remove_having_product(name_of_product)
-    self.having_product.delete(name_of_product)
+  def remove_having_product(*name_of_product)
+    name_of_product.each do |name_of_removing_product|
+      self.having_product.delete(name_of_removing_product)
+    end
     self
   end
   
