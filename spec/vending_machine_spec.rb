@@ -7,7 +7,7 @@ RSpec.describe Vendingmachine do
 
     subject { vendingmachine.calculate_inserted_money }
 
-    context '初めVendingVendingvendingmachineには何もお金が投入されていないとき' do
+    context '初めVendingvendingmachineには何もお金が投入されていないとき' do
       it { is_expected.to eq 0 }
     end
   end
@@ -92,6 +92,19 @@ RSpec.describe Vendingmachine do
         subject.remove_having_product("綾鷹", "ヘルシア緑茶")
       }
       it { expect(subject.having_product).to be_empty }
+    end
+  end
+
+  describe '#stock' do
+
+    subject { vendingmachine.stock[name_of_having_product] }
+
+    context '綾鷹が1つ入っている時' do
+      before {
+        vendingmachine.stock["綾鷹"] = 1
+      }
+      let(:name_of_having_product) { "綾鷹" }
+      it { is_expected.to eq 1 }
     end
   end
 

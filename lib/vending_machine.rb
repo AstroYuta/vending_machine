@@ -6,11 +6,12 @@ require "wallet"
 class ShortOfMoneyError < StandardError; end
 
 class Vendingmachine
-  attr_accessor :having_product, :buyed_product, :inserted_money
+  attr_accessor :having_product, :buyed_product, :inserted_money, :stock
   def initialize
     @having_product = {}
     @buyed_product = {}
     @inserted_money = Money::ZERO
+    @stock = {}
   end
 
   def calculate_inserted_money
