@@ -123,12 +123,12 @@ RSpec.describe Vendingmachine do
         it { expect {subject}.to raise_error ShortOfMoneyError }      
       end
 
-      # context 'having_productにないproductを買おうとしたとき' do
-      #   let(:amount_of_inserted_money) { 200 }
-      #   let(:name_of_buyed_product) { "コカコーラ" }
+      context 'having_productにないproductを買おうとしたとき' do
+        let(:amount_of_inserted_money) { 200 }
+        let(:name_of_buyed_product) { "コカコーラ" }
 
-      #   it { expect {subject}.to raise_error ArgumentError }
-      # end
+        it { expect {subject}.to raise_error ArgumentError }
+      end
     end
     
     context '二つproductを入れ、それらを購入するとき' do
