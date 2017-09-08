@@ -70,8 +70,6 @@ RSpec.describe VendingMachine do
 
   describe '#remove_having_product' do
 
-    subject { vendingmachine.remove_having_product(name_of_removing_product) }
-
     before {
       vendingmachine.add_having_product(
         { product: Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first), number_of_product: number_of_product },
@@ -82,26 +80,31 @@ RSpec.describe VendingMachine do
     let(:price_of_added_product_at_first) { Money.new(amount: 150) }
     let(:name_of_added_product_at_second) { "ヘルシア緑茶" }
     let(:price_of_added_product_at_second) { Money.new(amount: 180) }
-    let(:number_of_product) { 1 }
+    let(:number_of_product) { 5 }
 
-    context '綾鷹をVendingMachineから取りのぞくとき' do
-      let(:name_of_removing_product) { "綾鷹" }
-      it { expect(subject.having_product.length).to eq 1 }
-      it { expect(subject.having_product[name_of_removing_product]).to be_empty }
-    end
-
-    context 'ヘルシア緑茶をVendingMachineから取り除くとき' do
-      let(:name_of_removing_product) { "ヘルシア緑茶" }
-      it { expect(subject.having_product.length).to eq 1 }
-      it { expect(subject.having_product[name_of_removing_product]).to be_empty }
-    end
-
-    context '綾鷹とヘルシア緑茶をVendingMachineから取りのぞくとき' do
-      let(:name_of_removing_product) { "" }
+    context '綾鷹を1本VendingMachineから取りのぞくとき' do
       before {
-        subject.remove_having_product("綾鷹", "ヘルシア緑茶")
+        vendingmachine.remove_having_product(product: removing_product, number_of_removing_product: number_of_removing_product)
       }
-      it { expect(subject.having_product).to be_empty }
+      let(:removing_product) { Product.new(name: "綾鷹", price: Money.new(amount: 150)) }
+      let(:number_of_removing_product) { 1 }
+      it { expect(vendingmachine.stock[removing_product]).to eq 4 }
+    end
+
+    context '綾鷹、ヘルシア緑茶共に5本入っている状態から、綾鷹4本とヘルシア緑茶1本をVendingMachineから取りのぞくとき' do
+      before {
+        vendingmachine.remove_having_product(
+          { product: removing_product1, number_of_removing_product: number_of_removing_product1},
+          { product: removing_product2, number_of_removing_product: number_of_removing_product2})
+      }
+      let(:removing_product1) { Product.new(name: "綾鷹", price: Money.new(amount: 150)) }
+      let(:number_of_removing_product1) { 4 }
+      let(:removing_product2) { Product.new(name: "ヘルシア緑茶", price: Money.new(amount: 180)) }
+      let(:number_of_removing_product2) { 1 }
+      
+      it { expect(vendingmachine.having_product.length).to eq 2 }
+      it { expect(vendingmachine.stock[removing_product1]).to eq 1 }
+      it { expect(vendingmachine.stock[removing_product2]).to eq 4 }
     end
   end
 
