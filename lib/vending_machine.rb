@@ -13,7 +13,7 @@ class VendingMachine
     @inserted_money = Money::ZERO
     @stock = Hash.new(0)
   end
-
+  
   def calculate_inserted_money
     self.inserted_money.amount
   end
@@ -39,6 +39,9 @@ class VendingMachine
   def remove_having_product(*removing_products)
     removing_products.each do |name_of_removing_product|
       self.stock[name_of_removing_product[:product]] -= name_of_removing_product[:number_of_removing_product]
+      if self.stock[name_of_removing_product[:product]] < 0
+        raise ArgumentError
+      end
     end
     self
   end
