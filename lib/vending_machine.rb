@@ -5,7 +5,7 @@ require "wallet"
 
 class ShortOfMoneyError < StandardError; end
 
-class Vendingmachine
+class VendingMachine
   attr_accessor :having_product, :buyed_product, :inserted_money, :stock
   def initialize
     @having_product = {}

@@ -1,7 +1,7 @@
 require "spec_helper"
 
-RSpec.describe Vendingmachine do
-  let(:vendingmachine) { Vendingmachine.new }
+RSpec.describe VendingMachine do
+  let(:vendingmachine) { VendingMachine.new }
 
   describe '#calculate_inserted_money' do
 
@@ -74,19 +74,19 @@ RSpec.describe Vendingmachine do
     let(:name_of_added_product_at_second) { 'ヘルシア緑茶' }
     let(:price_of_added_product_at_second) { Money.new(amount: 180) }
 
-    context '綾鷹をVendingmachineから取りのぞくとき' do
+    context '綾鷹をVendingMachineから取りのぞくとき' do
       let(:name_of_removing_product) { "綾鷹" }
       it { expect(subject.having_product.length).to eq 1 }
       it { expect(subject.having_product[name_of_removing_product]).to be_nil }
     end
 
-    context 'ヘルシア緑茶をVendingmachineから取り除くとき' do
+    context 'ヘルシア緑茶をVendingMachineから取り除くとき' do
       let(:name_of_removing_product) { "ヘルシア緑茶" }
       it { expect(subject.having_product.length).to eq 1 }
       it { expect(subject.having_product[name_of_removing_product]).to be_nil }
     end
 
-    context '綾鷹とヘルシア緑茶をVendingmachineから取りのぞくとき' do
+    context '綾鷹とヘルシア緑茶をVendingMachineから取りのぞくとき' do
       let(:name_of_removing_product) { "" }
       before {
         subject.remove_having_product("綾鷹", "ヘルシア緑茶")
