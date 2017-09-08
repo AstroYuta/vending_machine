@@ -7,4 +7,12 @@ class Product
       raise ArgumentError
     end
   end
+
+  def eql?(other)
+    @name == other.name && @price == other.price
+  end
+
+  def hash
+    [@name, @age].hash
+  end
 end
