@@ -39,7 +39,6 @@ class VendingMachine
   def remove_having_product(*removing_products)
     removing_products.each do |name_of_removing_product|
       self.stock[name_of_removing_product[:product]] -= name_of_removing_product[:number_of_removing_product]
-      self.having_product.delete(name_of_removing_product)
     end
     self
   end
