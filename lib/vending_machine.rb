@@ -8,9 +8,13 @@ class ShortOfMoneyError < StandardError; end
 class VendingMachine
   attr_accessor :having_product, :buyed_product, :inserted_money, :stock
   def initialize
+    #having_productはproduct.nameをkeyとし、productをvalueとしてもつ
     @having_product = Hash.new { |hash, key| hash[key] = [] }
+    #buyed_productもhaving_productと構造は同じ
     @buyed_product = Hash.new { |hash, key| hash[key] = [] }
+    #初期状態のVendingMachine内のお金は0円
     @inserted_money = Money::ZERO
+    #在庫に関する情報stockはproductをkeyとし、個数をvalueとしてもつ
     @stock = Hash.new(0)
   end
   

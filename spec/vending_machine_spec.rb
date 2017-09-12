@@ -62,23 +62,24 @@ RSpec.describe VendingMachine do
     context '180円のヘルシア緑茶と150円の綾鷹を1本ずつ追加したとき' do
       before {
         vendingmachine.add_having_product(
-          { product: Product.new(name: name_of_product1, price: price_of_product1), number_of_product: number_of_product },
-          { product: Product.new(name: name_of_product2, price: price_of_product2), number_of_product: number_of_product }
+          { product: Product.new(name: name_of_added_product1, price: price_of_added_product1), number_of_product: number_of_added_product1 },
+          { product: Product.new(name: name_of_added_product2, price: price_of_added_product2), number_of_product: number_of_added_product2 }
         )
       }   
-      let(:name_of_product1) { "ヘルシア緑茶" }
-      let(:price_of_product1) { Money.new(amount: 180) }
-      let(:name_of_product2) { "綾鷹" }
-      let(:price_of_product2) { Money.new(amount: 150) }
-      let(:number_of_product) { 1 }
+      let(:name_of_added_product1) { "ヘルシア緑茶" }
+      let(:price_of_added_product1) { Money.new(amount: 180) }
+      let(:name_of_added_product2) { "綾鷹" }
+      let(:price_of_added_product2) { Money.new(amount: 150) }
+      let(:number_of_added_product1) { 1 }
+      let(:number_of_added_product2) { 1 }
 
       it{ expect(vendingmachine.having_product.length).to eq 2 }
-      it{ expect(vendingmachine.having_product[name_of_product1]).to be_a Product }
-      it{ expect(vendingmachine.having_product[name_of_product1].name).to eq "ヘルシア緑茶" }
-      it{ expect(vendingmachine.having_product[name_of_product1].price.amount).to eq 180 }
-      it{ expect(vendingmachine.having_product[name_of_product2]).to be_a Product }
-      it{ expect(vendingmachine.having_product[name_of_product2].name).to eq "綾鷹" }
-      it{ expect(vendingmachine.having_product[name_of_product2].price.amount).to eq 150 }      
+      it{ expect(vendingmachine.having_product[name_of_added_product1]).to be_a Product }
+      it{ expect(vendingmachine.having_product[name_of_added_product1].name).to eq "ヘルシア緑茶" }
+      it{ expect(vendingmachine.having_product[name_of_added_product1].price.amount).to eq 180 }
+      it{ expect(vendingmachine.having_product[name_of_added_product2]).to be_a Product }
+      it{ expect(vendingmachine.having_product[name_of_added_product2].name).to eq "綾鷹" }
+      it{ expect(vendingmachine.having_product[name_of_added_product2].price.amount).to eq 150 }
     end
   end
 
@@ -86,15 +87,16 @@ RSpec.describe VendingMachine do
 
     before {
       vendingmachine.add_having_product(
-        { product: Product.new(name: name_of_added_product_at_first, price: price_of_added_product_at_first), number_of_product: number_of_product },
-        { product: Product.new(name: name_of_added_product_at_second, price: price_of_added_product_at_second), number_of_product: number_of_product }
+        { product: Product.new(name: name_of_added_product1, price: price_of_added_product1), number_of_product: number_of_added_product1 },
+        { product: Product.new(name: name_of_added_product2, price: price_of_added_product2), number_of_product: number_of_added_product2 }
       )
     }
-    let(:name_of_added_product_at_first) { "綾鷹" }
-    let(:price_of_added_product_at_first) { Money.new(amount: 150) }
-    let(:name_of_added_product_at_second) { "ヘルシア緑茶" }
-    let(:price_of_added_product_at_second) { Money.new(amount: 180) }
-    let(:number_of_product) { 5 }
+    let(:name_of_added_product1) { "綾鷹" }
+    let(:price_of_added_product1) { Money.new(amount: 150) }
+    let(:name_of_added_product2) { "ヘルシア緑茶" }
+    let(:price_of_added_product2) { Money.new(amount: 180) }
+    let(:number_of_added_product1) { 5 }
+    let(:number_of_added_product2) { 5 }
 
     context '綾鷹だけを取りのぞくとき' do
       subject {
@@ -124,7 +126,6 @@ RSpec.describe VendingMachine do
       let(:removing_product2) { Product.new(name: "ヘルシア緑茶", price: Money.new(amount: 180)) }
       let(:number_of_removing_product2) { 1 }
       
-      it { expect(vendingmachine.having_product.length).to eq 2 }
       it { expect(vendingmachine.stock[removing_product1]).to eq 1 }
       it { expect(vendingmachine.stock[removing_product2]).to eq 4 }
     end
