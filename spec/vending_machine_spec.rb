@@ -46,8 +46,9 @@ RSpec.describe VendingMachine do
 
     context '150円の綾鷹を1本追加したとき' do
       before {
-        vendingmachine.add_having_product(product: Product.new(name: name_of_added_product, price: price_of_added_product), number_of_product: number_of_added_product)
+        vendingmachine.add_having_product(product: product, number_of_product: number_of_added_product)
       }
+      let(:product) { Product.new(name: name_of_added_product, price: price_of_added_product) }
       let(:name_of_added_product) { "綾鷹" }
       let(:price_of_added_product) { Money.new(amount: 150) }
       let(:number_of_added_product) { 1 }
@@ -56,30 +57,52 @@ RSpec.describe VendingMachine do
       it {expect(vendingmachine.having_product[name_of_added_product]).to be_a Product }
       it {expect(vendingmachine.having_product[name_of_added_product].name).to eq "綾鷹" }
       it {expect(vendingmachine.having_product[name_of_added_product].price.amount).to eq 150 }
+      it {expect(vendingmachine.stock[product]).to eq 1 }
     end
 
     
     context '180円のヘルシア緑茶と150円の綾鷹を1本ずつ追加したとき' do
       before {
         vendingmachine.add_having_product(
-          { product: Product.new(name: name_of_added_product1, price: price_of_added_product1), number_of_product: number_of_added_product1 },
-          { product: Product.new(name: name_of_added_product2, price: price_of_added_product2), number_of_product: number_of_added_product2 }
+          { product: product1, number_of_product: number_of_added_product1 },
+          { product: product2, number_of_product: number_of_added_product2 }
         )
-      }   
+      }
+      let(:product1) { Product.new(name: name_of_added_product1, price: price_of_added_product1) }
       let(:name_of_added_product1) { "ヘルシア緑茶" }
       let(:price_of_added_product1) { Money.new(amount: 180) }
+      let(:number_of_added_product1) { 1 }
+
+      let(:product2) { Product.new(name: name_of_added_product2, price: price_of_added_product2) }
       let(:name_of_added_product2) { "綾鷹" }
       let(:price_of_added_product2) { Money.new(amount: 150) }
-      let(:number_of_added_product1) { 1 }
       let(:number_of_added_product2) { 1 }
 
       it{ expect(vendingmachine.having_product.length).to eq 2 }
+
       it{ expect(vendingmachine.having_product[name_of_added_product1]).to be_a Product }
       it{ expect(vendingmachine.having_product[name_of_added_product1].name).to eq "ヘルシア緑茶" }
       it{ expect(vendingmachine.having_product[name_of_added_product1].price.amount).to eq 180 }
+      it{ expect(vendingmachine.stock[product1]).to eq 1 }
+
       it{ expect(vendingmachine.having_product[name_of_added_product2]).to be_a Product }
       it{ expect(vendingmachine.having_product[name_of_added_product2].name).to eq "綾鷹" }
       it{ expect(vendingmachine.having_product[name_of_added_product2].price.amount).to eq 150 }
+      it{ expect(vendingmachine.stock[product2]).to eq 1 }
+    end
+
+    context '150円の綾鷹を-5本追加したとき' do
+      before {
+        vendingmachine.add_having_product(product: Product.new(name: name_of_added_product, price: price_of_added_product), number_of_product: number_of_added_product)
+      }
+      let(:name_of_added_product) { "綾鷹" }
+      let(:price_of_added_product) { Money.new(amount: 150) }
+      let(:number_of_added_product) { -5 }
+
+      it {expect(vendingmachine.having_product.length).to eq 1 }
+      it {expect(vendingmachine.having_product[name_of_added_product]).to be_a Product }
+      it {expect(vendingmachine.having_product[name_of_added_product].name).to eq "綾鷹" }
+      it {expect(vendingmachine.having_product[name_of_added_product].price.amount).to eq 150 }
     end
   end
 
