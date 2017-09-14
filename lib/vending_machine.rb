@@ -65,13 +65,13 @@ class VendingMachine
     rescue
       raise ShortOfMoneyError
     end
-    
+    #在庫のある場合だけ、stockを一つ減らす
     if self.stock[buyed_product] < 1
       raise ShortOfStockError
     else
       self.stock[buyed_product] -= 1
     end
-    
+    #buyed_productに購入したproductを渡す
     self.buyed_product[buyed_product.name] = self.having_product[buyed_product.name]
     self
   end
