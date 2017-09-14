@@ -34,11 +34,11 @@ class VendingMachine
 
   def add_having_product(*other_products)
     other_products.each do |adding_product|
-      if adding_product[:number_of_product] < 0
+      if adding_product[:number_of_added_product] < 0
         raise ArgumentError
       end
       self.having_product[adding_product[:product].name] = adding_product[:product]
-      self.stock[adding_product[:product]] += adding_product[:number_of_product]
+      self.stock[adding_product[:product]] += adding_product[:number_of_added_product]
     end
     self
   end
