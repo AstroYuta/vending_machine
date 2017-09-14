@@ -55,7 +55,7 @@
  - どうしよう...
 
  ##Todo SEPTEMBER 8th
- - #add_having_productで負のプロダクト数を渡した時、raise ArgumentErrorするかどうかのテスト追加 => すぐできそう
+ - #add_having_productで負のプロダクト数を渡した時、raise ArgumentErrorするかどうかのテスト追加 => すぐできそう => DONE
  - #remove_having_productで負のプロダクト数を渡した時、raise ArgumentErrorするかどうかのテスト追加 => すぐできそう
  - あるproductのすべての在庫を取り払うような、#remove_having_ALL_productという新しい関数を追加=> 優先順位は低い
  - そもそも、関数ごとに、実行した結果stockが負になる時raise ArgumentErrorするという仕様でなく、stockの値はいかなる時も０以上で、負になったらraise ArgumentErrorするような仕様にしたい => どうしよう...

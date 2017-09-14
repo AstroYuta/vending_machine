@@ -130,6 +130,12 @@ RSpec.describe VendingMachine do
         let(:number_of_removing_product) { 100 }
         it { expect {subject}.to raise_error ArgumentError }
       end
+
+      context '綾鷹を-5本取りのぞくとき' do
+        let(:number_of_removing_product) { -5 }
+        it { expect {subject}.to raise_error ArgumentError }
+      end
+
     end
 
     context '綾鷹、ヘルシア緑茶共に5本入っている状態から、綾鷹4本とヘルシア緑茶1本を取りのぞくとき' do
