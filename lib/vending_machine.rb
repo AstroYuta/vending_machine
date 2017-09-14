@@ -48,9 +48,10 @@ class VendingMachine
       if removing_product[:number_of_removing_product] < 0
         raise ArgumentError
       end
-      self.stock[removing_product[:product]] -= removing_product[:number_of_removing_product]
-      if self.stock[removing_product[:product]] < 0
+      if self.stock[removing_product[:product]] < removing_product[:number_of_removing_product]
         raise ArgumentError
+      else
+        self.stock[removing_product[:product]] -= removing_product[:number_of_removing_product]
       end
     end
     self
