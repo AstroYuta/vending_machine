@@ -23,7 +23,7 @@ RSpec.describe VendingMachine do
 
     context '-100円投入したとき' do
       let(:amount_of_inserted_money) { -100 }
-      it { expect {subject}.to raise_error ArgumentError }
+      it { expect{ subject }.to raise_error ArgumentError }
     end
 
     context '100円投入してから、50円投入したとき' do
@@ -65,7 +65,7 @@ RSpec.describe VendingMachine do
       context '-5本追加したとき' do
         let(:number_of_added_product) { -5 }
 
-        it {expect{subject}.to raise_error ArgumentError}
+        it { expect{ subject }.to raise_error ArgumentError }
       end
     end
     
@@ -201,14 +201,21 @@ RSpec.describe VendingMachine do
       context '100円入れて購入するとき(お金が足りないとき)' do
         let(:amount_of_inserted_money) { 100 }
 
-        it { expect {subject}.to raise_error ShortOfMoneyError }      
+        it { expect{ subject }.to raise_error ShortOfMoneyError }
       end
 
       context 'having_productにないproductを買おうとしたとき' do
         let(:amount_of_inserted_money) { 200 }
         let(:name_of_buyed_product) { "コカコーラ" }
 
-        it { expect {subject}.to raise_error ArgumentError }
+        it { expect{ subject }.to raise_error ArgumentError }
+      end
+
+      context '在庫のないproductを買おうとしたとき' do
+        let(:number_of_added_product) { 0 }
+        let(:amount_of_inserted_money) { 200 }
+
+        it { expect{ subject }.to raise_error ShortOfStockError }
       end
     end
     

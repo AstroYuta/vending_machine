@@ -4,6 +4,7 @@ require "money"
 require "wallet"
 
 class ShortOfMoneyError < StandardError; end
+class ShortOfStockError < StandardError; end
 
 class VendingMachine
   attr_accessor :having_product, :buyed_product, :inserted_money, :stock
@@ -58,12 +59,19 @@ class VendingMachine
     if self.having_product.has_key?(buyed_product.name) == false
       raise ArgumentError
     end
+    
     begin
       self.inserted_money -= self.having_product[buyed_product.name].price
     rescue
       raise ShortOfMoneyError
     end
-    self.stock[buyed_product] -= 1
+    
+    if self.stock[buyed_product] < 1
+      raise ShortOfStockError
+    else
+      self.stock[buyed_product] -= 1
+    end
+    
     self.buyed_product[buyed_product.name] = self.having_product[buyed_product.name]
     self
   end
