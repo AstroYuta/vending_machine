@@ -17,7 +17,7 @@ class VendingMachine
     #在庫に関する情報stockはproductをkeyとし、個数をvalueとしてもつ
     @stock = Hash.new(0)
   end
-  
+
   def calculate_inserted_money
     self.inserted_money.amount
   end
@@ -34,6 +34,9 @@ class VendingMachine
 
   def add_having_product(*other_products)
     other_products.each do |adding_product|
+      if adding_product[:number_of_product] < 0
+        raise ArgumentError
+      end
       self.having_product[adding_product[:product].name] = adding_product[:product]
       self.stock[adding_product[:product]] += adding_product[:number_of_product]
     end
