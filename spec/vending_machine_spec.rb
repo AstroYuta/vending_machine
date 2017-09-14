@@ -128,7 +128,7 @@ RSpec.describe VendingMachine do
 
       context '綾鷹を100本取りのぞくとき' do
         let(:number_of_removing_product) { 100 }
-        it { expect {subject}.to raise_error ArgumentError }
+        it { expect {subject}.to raise_error ShortOfStockError }
       end
 
       context '綾鷹を-5本取りのぞくとき' do

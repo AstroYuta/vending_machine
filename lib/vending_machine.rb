@@ -46,8 +46,10 @@ class VendingMachine
 
   def remove_having_product(*removing_products)
     removing_products.each do |removing_product|
-      if removing_product[:number_of_removing_product] < 0 || self.stock[removing_product[:product]] < removing_product[:number_of_removing_product]
+      if removing_product[:number_of_removing_product] < 0
         raise ArgumentError
+      elsif self.stock[removing_product[:product]] < removing_product[:number_of_removing_product]
+        raise ShortOfStockError
       else
         self.stock[removing_product[:product]] -= removing_product[:number_of_removing_product]
       end
