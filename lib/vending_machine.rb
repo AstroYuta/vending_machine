@@ -54,16 +54,17 @@ class VendingMachine
     self
   end
   
-  def buy(name_of_product)
-    if self.having_product.has_key?(name_of_product) == false
+  def buy(buyed_product)
+    if self.having_product.has_key?(buyed_product.name) == false
       raise ArgumentError
     end
     begin
-      self.inserted_money -= self.having_product[name_of_product].price
+      self.inserted_money -= self.having_product[buyed_product.name].price
     rescue
       raise ShortOfMoneyError
     end
-    self.buyed_product[name_of_product] = self.having_product[name_of_product]
+    self.stock[buyed_product] -= 1
+    self.buyed_product[buyed_product.name] = self.having_product[buyed_product.name]
     self
   end
 end

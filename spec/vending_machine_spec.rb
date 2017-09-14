@@ -171,25 +171,31 @@ RSpec.describe VendingMachine do
 
   describe '#buy' do
 
-    subject { vendingmachine.buy(name_of_buyed_product) }
+    subject { vendingmachine.buy(buyed_product) }
 
     context '一つだけproductを入れ、それを購入するとき' do
       before {
-        vendingmachine.add_having_product(product: Product.new(name: name_of_added_product, price: price_of_added_product), number_of_added_product: number_of_product ).insert_money(Money.new(amount: amount_of_inserted_money))
+        vendingmachine.add_having_product(product: Product.new(name: name_of_added_product, price: price_of_added_product), number_of_added_product: number_of_added_product ).insert_money(Money.new(amount: amount_of_inserted_money))
       }
       let(:name_of_added_product) { "綾鷹" }
       let(:price_of_added_product) { Money.new(amount: 150) }
+      let(:number_of_added_product) { 1 }
+
+      let(:buyed_product) { Product.new(name: name_of_buyed_product, price: price_of_buyed_product) }
       let(:name_of_buyed_product) { "綾鷹" }
-      let(:number_of_product) { 1 }
+      let(:price_of_buyed_product) { Money.new(amount: 150) }
 
       context '200円入れて購入するとき' do
         let(:amount_of_inserted_money) { 200 }
 
         it { expect(subject.calculate_inserted_money).to eq 50 }
+
         it { expect(subject.buyed_product.length).to eq 1 }      
-        it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
-        it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "綾鷹" }
-        it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 150 }
+        it { expect(subject.buyed_product[buyed_product.name]).to be_a Product }
+        it { expect(subject.buyed_product[buyed_product.name].name).to eq "綾鷹" }
+        it { expect(subject.buyed_product[buyed_product.name].price.amount).to eq 150 }
+
+        it { expect(subject.stock[buyed_product]).to eq 0 }
       end
 
       context '100円入れて購入するとき(お金が足りないとき)' do
@@ -221,44 +227,63 @@ RSpec.describe VendingMachine do
       context '各々一つずつ買うとき' do
         context '200円投入して綾鷹を買うとき' do
           let(:amount_of_inserted_money) { 200 }
+          let(:buyed_product) { Product.new(name: name_of_buyed_product, price: price_of_buyed_product) }
           let(:name_of_buyed_product) { "綾鷹" }
+          let(:price_of_buyed_product) { Money.new(amount: 150) }
 
           it { expect(subject.calculate_inserted_money).to eq 50 }
-          it { expect(subject.buyed_product.length).to eq 1 }      
-          it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
-          it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "綾鷹" }
-          it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 150 }
+
+          it { expect(subject.buyed_product.length).to eq 1 }
+          it { expect(subject.buyed_product[buyed_product.name]).to be_a Product }
+          it { expect(subject.buyed_product[buyed_product.name].name).to eq "綾鷹" }
+          it { expect(subject.buyed_product[buyed_product.name].price.amount).to eq 150 }
+
+          it { expect(subject.stock[buyed_product]).to eq 0 }
         end
 
         context '200円投入してヘルシア緑茶を買うとき' do
           let(:amount_of_inserted_money) { 200 }
+          let(:buyed_product) { Product.new(name: name_of_buyed_product, price: price_of_buyed_product) }
           let(:name_of_buyed_product) { "ヘルシア緑茶" }
+          let(:price_of_buyed_product) { Money.new(amount: 180) }
 
           it { expect(subject.calculate_inserted_money).to eq 20 }
+
           it { expect(subject.buyed_product.length).to eq 1 }      
-          it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
-          it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "ヘルシア緑茶" }
-          it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 180 }      
+          it { expect(subject.buyed_product[buyed_product.name]).to be_a Product }
+          it { expect(subject.buyed_product[buyed_product.name].name).to eq "ヘルシア緑茶" }
+          it { expect(subject.buyed_product[buyed_product.name].price.amount).to eq 180 }
+
+          it { expect(subject.stock[buyed_product]).to eq 0 }
         end
       end
 
       context '続けて2商品購入するとき' do
         context '500円投入して綾鷹を購入、続いてヘルシア緑茶を買うとき' do
           before {
-            vendingmachine.buy(name_of_buyed_product_at_second)
+            vendingmachine.buy(buyed_product_at_second)
           }
           let(:amount_of_inserted_money) { 500 }
+          let(:buyed_product) { Product.new(name: name_of_buyed_product, price: price_of_buyed_product) }
           let(:name_of_buyed_product) { "綾鷹" }
+          let(:price_of_buyed_product) { Money.new(amount: 150) }
+
+          let(:buyed_product_at_second) { Product.new(name: name_of_buyed_product_at_second, price: price_of_buyed_product_at_second)}
           let(:name_of_buyed_product_at_second) { "ヘルシア緑茶" }
+          let(:price_of_buyed_product_at_second) { Money.new(amount: 180) }
 
           it { expect(subject.calculate_inserted_money).to eq 170 }
+
           it { expect(subject.buyed_product.length).to eq 2 }
-          it { expect(subject.buyed_product[name_of_buyed_product]).to be_a Product }
-          it { expect(subject.buyed_product[name_of_buyed_product].name).to eq "綾鷹" }
-          it { expect(subject.buyed_product[name_of_buyed_product].price.amount).to eq 150 }
-          it { expect(subject.buyed_product[name_of_buyed_product_at_second]).to be_a Product }
-          it { expect(subject.buyed_product[name_of_buyed_product_at_second].name).to eq "ヘルシア緑茶" }
-          it { expect(subject.buyed_product[name_of_buyed_product_at_second].price.amount).to eq 180 }
+          it { expect(subject.buyed_product[buyed_product.name]).to be_a Product }
+          it { expect(subject.buyed_product[buyed_product.name].name).to eq "綾鷹" }
+          it { expect(subject.buyed_product[buyed_product.name].price.amount).to eq 150 }
+          it { expect(subject.stock[buyed_product]).to eq 0 }
+
+          it { expect(subject.buyed_product[buyed_product_at_second.name]).to be_a Product }
+          it { expect(subject.buyed_product[buyed_product_at_second.name].name).to eq "ヘルシア緑茶" }
+          it { expect(subject.buyed_product[buyed_product_at_second.name].price.amount).to eq 180 }
+          it { expect(subject.stock[buyed_product_at_second]).to eq 0 }
         end
       end
     end
