@@ -121,10 +121,9 @@ RSpec.describe VendingMachine do
       }
       let(:removing_product) { Product.new(name: "綾鷹", price: Money.new(amount: 150)) }
 
-      context '綾鷹を1本取りのぞくとき', focus: true do
+      context '綾鷹を1本取りのぞくとき' do
         let(:number_of_removing_product) { 1 }
         it {
-          p vendingmachine.stock[removing_product]
           expect(subject.stock[removing_product]).to eq 4 
         }
       end

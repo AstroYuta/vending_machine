@@ -59,4 +59,15 @@ RSpec.describe Product do
       end
     end
   end
+
+  describe '#hash' do
+    let(:product) { Product.new(name: '綾鷹', price: Money.new(amount: 150)) }
+
+    subject { product.hash }
+
+    context '同じproductと比較するとき' do
+      let(:other_product) { Product.new(name: '綾鷹', price: Money.new(amount: 150)) }
+      it { is_expected.to eq other_product.hash }
+    end
+  end
 end

@@ -65,16 +65,24 @@ RSpec.describe Money do
   describe '#-' do
     subject {money - Money.new(amount: amount_of_other_money) }
 
-    context '100円引いた時' do 
+    context '100円引いた時' do
       let(:amount_of_other_money) { 100 }
 
-      it { 
+      it {
         is_expected.to be_a(Money)
-        expect(subject.amount).to eq 0 
+        expect(subject.amount).to eq 0
       }
     end
-
   end
 
+  describe '#hash' do
+    let(:money) { Money.new(amount: 100) }
 
+    subject { money.hash }
+
+    describe '同じ金額の場合' do
+      let(:other_money) { Money.new(amount: 100) }
+      it { is_expected.to eq other_money.hash }
+    end
+  end
 end

@@ -19,6 +19,10 @@ class Money
   def -(other_money)
     Money.new(amount: self.amount - other_money.amount)
   end
+
+  def hash
+    amount.hash
+  end
 end
 
 Money::ZERO = Money.new(amount: 0)
