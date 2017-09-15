@@ -39,19 +39,24 @@ RSpec.describe Product do
   end
 
   describe '#eql?' do
-    subject { product.eql?(product2) }
+    subject { product.eql?(other_product) }
     let(:product) { Product.new(name: '綾鷹', price: Money.new(amount: 150)) }
 
     context '同じproductを比較するとき' do
-      let(:product2) { Product.new(name: '綾鷹', price: Money.new(amount: 150)) }
-
+      let(:other_product) { Product.new(name: '綾鷹', price: Money.new(amount: 150)) }
       it { is_expected.to be_truthy }
     end
 
     context '違うproductを比較するとき' do
-      let(:product2) { Product.new(name: 'ヘルシア緑茶', price: Money.new(amount: 150)) }
+      context 'nameが違うproductのとき' do
+        let(:other_product) { Product.new(name: 'ヘルシア緑茶', price: Money.new(amount: 150)) }
+        it { is_expected.to be_falsy }
+      end
 
-      it { is_expected.to be_falsy }
+      context 'priceが違うproductのとき' do
+        let(:other_product) { Product.new(name: '綾鷹', price: Money.new(amount: 100)) }
+        it { is_expected.to be_falsy }
+      end
     end
   end
 end
