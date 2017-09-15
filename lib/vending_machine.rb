@@ -25,7 +25,7 @@ class VendingMachine
   end
 
   def reset_inserted_money
-    self.inserted_money = Money.new(amount: 0)
+    self.inserted_money = Money::ZERO
     self
   end
 
