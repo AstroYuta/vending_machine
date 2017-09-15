@@ -13,6 +13,6 @@ class Product
   end
 
   def hash
-    [@name, @age].hash
+    [@name, @price].hash
   end
 end
